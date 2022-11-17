@@ -35,52 +35,6 @@ import ConvertingPage from './components/ConvertingPage';
 const Stack = createNativeStackNavigator();
 
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const sleep = time =>
-    new Promise(resolve => setTimeout(() => resolve(), time));
-  /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
-   * LTI update could not be added via codemod */
-  const Section = ({children, title}): Node => {
-    const isDarkMode = useColorScheme() === 'dark';
-    return (
-      <View style={styles.sectionContainer}>
-        <Text
-          style={[
-            styles.sectionTitle,
-            {
-              color: isDarkMode ? Colors.white : Colors.black,
-            },
-          ]}>
-          {title}
-        </Text>
-        <Text
-          style={[
-            styles.sectionDescription,
-            {
-              color: isDarkMode ? Colors.light : Colors.dark,
-            },
-          ]}>
-          {children}
-        </Text>
-      </View>
-    );
-  };
-
-  async function click() {
-    await BackgroundService.start(veryIntensiveTask, options);
-    await BackgroundService.updateNotification({
-      taskDesc: 'New ExampleTask description',
-    }); // Only Android, iOS will ignore this call
-    // iOS will also run everything here in the background until .stop() is called
-    await sleep(5000);
-    await BackgroundService.stop();
-  }
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
     <NavigationContainer>
       <Stack.Navigator>

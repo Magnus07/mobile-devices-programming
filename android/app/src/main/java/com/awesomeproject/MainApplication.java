@@ -13,6 +13,9 @@ import com.awesomeproject.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+// import com.reactnativemultithreading.MultithreadingJSIModulePackage;
+// import com.facebook.react.bridge.JSIModulePackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -35,7 +38,13 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
-      };
+
+        // // TODO: Remove this when JSI Modules can be autoinstalled (maybe RN 0.65)
+        // @Override
+        // protected JSIModulePackage getJSIModulePackage() {
+        //   return new MultithreadingJSIModulePackage();
+        // }
+    };
 
   private final ReactNativeHost mNewArchitectureNativeHost =
       new MainApplicationReactNativeHost(this);

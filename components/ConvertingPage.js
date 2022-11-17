@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View, TextInput, StyleSheet} from 'react-native';
 import ConvertingPicker from './ConvertingPicker';
 import BackgroundService from 'react-native-background-actions';
+import RnBgTask from 'react-native-bg-thread';
 
 function ConvertingPage(props) {
   const {convertOptions, rates} = props.route.params;
@@ -27,12 +28,14 @@ function ConvertingPage(props) {
 
   React.useEffect(() => {
     async function runAsync() {
-      await BackgroundService.start(BGFunction, options);
-      await BackgroundService.updateNotification({
-        taskDesc: 'Processing Service',
-      }); // Only Android, iOS will ignore this call
-      // iOS will also run everything here in the background until .stop() is called
-      await BackgroundService.stop();
+      RnBgTask.runInBackground(async () => {
+        await BackgroundService.start(BGFunction, options);
+        await BackgroundService.updateNotification({
+          taskDesc: 'Processing Service',
+        }); // Only Android, iOS will ignore this call
+        // iOS will also run everything here in the background until .stop() is called
+        await BackgroundService.stop();
+      });
     }
 
     runAsync();
